@@ -1,10 +1,26 @@
-const CryptoJS = require('crypto-js');
+const axios = require('axios');
+const crypto = require('crypto');
 
-const uri = "https://authservice.priaid.ch/login";
-const secret_key = "Pa97EzAm3s6GFw8i2";
+async function getAuthToken(apiUsername, apiPassword, authServiceUrl) {
+  const hashedCredentials = generateHMACMD5(apiPassword, authServiceUrl);
 
-const computedHash = CryptoJS.HmacMD5(uri, secret_key);
-const computedHashString = computedHash.toString(CryptoJS.enc.Base64);
+  try {
+    const response = await axios.post(authServiceUrl, null, {
+      headers: {
+        Authorization: `Bearer ${apiUsername}:${hashedCredentials}`,
+      },
+    });
 
-console.log("HMAC-MD5 hash: ", computedHashString);
+    return response.data.Token;
+  } catch (error) {
+    throw new Error(`Authentication failed: ${error.response ? error.response.data : error.message}`);
+  }
+}
 
+function generateHMACMD5(secretKey, data) {
+  const hmac = crypto.createHmac('md5', secretKey);
+  hmac.update(data);
+  return hmac.digest('base64');
+}
+
+module.exports = { getAuthToken };
