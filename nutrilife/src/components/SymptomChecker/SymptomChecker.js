@@ -1,25 +1,48 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 const SymptomChecker = () => {
-  const [symptoms, setSymptoms] = useState("");
-  const [diseases, setDiseases] = useState([]);
+  const [symptoms, setSymptoms] = useState([]);
+  const [language, setLanguage] = useState('en-gb');
+  const [searchTerm, setSearchTerm] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const handleSymptomChange = (event) => {
-    setSymptoms(event.target.value);
+  useEffect(() => {
+    // Fetch symptoms when the component mounts
+    fetchSymptoms();
+  }, []);
+
+  const fetchSymptoms = async () => {
+    setLoading(true);
+    try {
+      const response = await axios.get('http://localhost:3001/symptoms', {
+        params: {
+          language: language,
+          searchTerm: searchTerm,
+          // Add other parameters as needed
+        },
+      });
+      setSymptoms(response.data);
+    } catch (error) {
+      console.error('Error fetching symptoms:', error.message);
+    }
+    setLoading(false);
   };
 
-  const handleSubmit = async (event) => {
+  const handleSearch = async (event) => {
     event.preventDefault();
     setLoading(true);
     try {
-      const response = await axios.post("YOUR_API_ENDPOINT", {
-        symptoms: symptoms,
+      const response = await axios.get('http://localhost:3001/symptoms', {
+        params: {
+          language: language,
+          searchTerm: searchTerm,
+          // Add other parameters as needed
+        },
       });
-      setDiseases(response.data);
+      setSymptoms(response.data);
     } catch (error) {
-      console.error("Error fetching data: ", error);
+      console.error('Error searching symptoms:', error.message);
     }
     setLoading(false);
   };
@@ -27,36 +50,33 @@ const SymptomChecker = () => {
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold mb-4">Health App - Symptom Checker</h1>
-      <form onSubmit={handleSubmit} className="mb-4">
-        <label className="block mb-2">Enter Symptoms:</label>
+        <label className="block mb-2">
+          Language:
+          <select value={language} onChange={(e) => setLanguage(e.target.value)}>
+            <option value="en-gb">English</option>
+            { /* Add other language options as needed */ }
+          </select>
+        </label>
         <input
           type="text"
-          value={symptoms}
-          onChange={handleSymptomChange}
-          className="border border-gray-300 rounded-md px-4 py-2 w-full"
-          placeholder="e.g., fever, headache, cough"
-          required
+          placeholder="fever, headache, ..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
         />
-        <button
-          type="submit"
+        <button 
+          onClick={handleSearch}
           className="mt-4 px-6 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
           disabled={loading}
-        >
-          {loading ? "Loading..." : "Check Symptoms"}
+          >
+            {loading ? "Loading..." : "Check Symptoms"} 
         </button>
-      </form>
-      {diseases.length > 0 && (
-        <div className="mt-4">
-          <h2 className="text-lg font-semibold mb-2">Suspected Diseases:</h2>
-          <ul className="list-disc list-inside">
-            {diseases.map((disease, index) => (
-              <li key={index}>{disease}</li>
-            ))}
-          </ul>
-        </div>
-      )}
+        <div>
+          {symptoms.map((symptom) => (
+            <p key={symptom.Id}> {`ID: ${symptom.ID} - Name: ${symptom.Name}`}</p>
+          ))}
+      </div>
     </div>
   );
-};
+}
 
 export default SymptomChecker;
