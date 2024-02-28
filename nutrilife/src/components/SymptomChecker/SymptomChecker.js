@@ -65,7 +65,7 @@ const SymptomChecker = () => {
         />
         <button 
           onClick={handleSearch}
-          className="mt-4 px-6 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
+          className="btn btn-primary rounded-pill"
           disabled={loading}
           >
             {loading ? "Loading..." : "Check Symptoms"} 

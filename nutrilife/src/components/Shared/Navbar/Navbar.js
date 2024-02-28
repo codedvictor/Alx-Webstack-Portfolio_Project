@@ -35,21 +35,24 @@ const Navbar = () => {
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul className="navbar-nav  mb-2 mb-lg-0 ms-auto">
                         <li className="nav-item">
-                            <a className="nav-link active me-3" aria-current="page" href="/">HOME</a>
+                            <a className="nav-link active me-3" aria-current="page" href="/">Home</a>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link me-3 textDark" href="#symptomChecker" >SYMPTOMS CHECKER</a>
+                            <a className="nav-link me-3 textDark" href="/symptom-checker" >Symptoms</a>
+                        </li>
+                        <li className="nav-item">
+                            <a className="nav-link me-3 textDark" href="/symptom-diagnosis" >Diagnosis</a>
                         </li>
                         <li className="nav-item">
                             {/* <a className={`nav-link me-3 text-white ${isSticky ? "textDark" : "textWhite"}`} href="#BlogContaint">BLOG</a> */}
-                            <a className="nav-link me-3 textDark" href="#nutritions">NUTRITION</a>
+                            <a className="nav-link me-3 textDark" href="#nutritions">Nutrition</a>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link me-3 textDark" href="#nutritionAnalysis">NUTRITION ANALYSIS</a>
+                            <a className="nav-link me-3 textDark" href="#nutritionAnalysis">Nutrition Analysis</a>
                         </li>                        
 
                         <li className="nav-item">
-                            <a href='#aboutPage' className="nav-link me-3">ABOUT</a>
+                            <a href='#aboutPage' className="nav-link me-3">About</a>
                             {/* <NavLink activeClassName="aboutPage" className="nav-link me-3" to="#aboutPage">ABOUT</NavLink> */}
                         </li>
                     </ul>
