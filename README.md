@@ -10,7 +10,7 @@ Igbe Ajaga
 Project Description
 The NutriLife project aims to enhance overall well-being by providing users with evidence-based guidance and personalized support. The core features of the project include:
 
-Health, Nutrition, and Lifestyle Guidance: NutriLife offers comprehensive guidance on health, nutrition, and lifestyle choices, providing users with the knowledge to make informed decisions.
+Health, Nutrition, and Lifestyle Guidance. NutriLife offers comprehensive guidance on health, nutrition, and lifestyle choices, providing users with the knowledge to make informed decisions.
 
 Personalized Support: The platform provides personalized support to users, tailoring recommendations based on individual health goals and preferences.
 
