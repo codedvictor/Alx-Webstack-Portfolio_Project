@@ -66,3 +66,5 @@ Replace app.js with the actual name of your file if you used a different name.
 The script will execute, and you should see the output in the terminal. Note that if your script is making HTTP requests to external services, make sure you have internet connectivity and that the services are accessible from your network.
 
 Remember to replace the placeholder data in your script (like the token and language) with your actual credentials and data before running it.
+
+Thanks.
